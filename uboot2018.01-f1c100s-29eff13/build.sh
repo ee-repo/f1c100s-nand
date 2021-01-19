@@ -1,6 +1,14 @@
 #!/bin/bash
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- licheepi_nano_spinand_defconfig
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
+
+## F1C100S
+#make ARCH=arm CROSS_COMPILE=/mywork/f1c100s/f1c100s-tools/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabi/bin/arm-linux-gnueabi- licheepi_nano_spinand_defconfig
+#make ARCH=arm CROSS_COMPILE=/mywork/f1c100s/f1c100s-tools/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabi/bin/arm-linux-gnueabi-
+
+## H3
+make ARCH=arm DEBUG=1 CROSS_COMPILE=/work/tools/gcc-linaro-7.3.1-2018.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf- orangepi_zero_defconfig
+make ARCH=arm DEBUG=1 CROSS_COMPILE=/work/tools/gcc-linaro-7.3.1-2018.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
+
+
 if [ -f u-boot-sunxi-with-spl.bin ]; then
 	UBOOOFFSET=$(cat u-boot.cfg | grep CONFIG_SYS_SPI_U_BOOT_OFFS | awk '{print $3}' | sed -n '1,1p')
 	if [ "$UBOOOFFSET" == "0x8000" ]; then
